@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tharun S P | Portfolio with AI Assistant</title>
+    <!-- Tailwind via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Gradient text utility */
+      .gradient-text {
+        background: linear-gradient(135deg, #60a5fa, #2dd4bf);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* AI Mouse Effects - Interactive Cursor Trail */
+      .cursor-trail {
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #60a5fa, #2dd4bf);
+        pointer-events: none;
+        z-index: 9999;
+        mix-blend-mode: screen;
+        transition: transform 0.1s ease;
+        box-shadow: 0 0 20px #60a5fa, 0 0 40px #2dd4bf;
+      }
+
+      .cursor-trail-2 {
+        position: fixed;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(96, 165, 250, 0.3),
+          rgba(45, 212, 191, 0.1)
+        );
+        pointer-events: none;
+        z-index: 9998;
+        filter: blur(8px);
+        transition: all 0.15s ease;
+      }
+
+      .cursor-trail-3 {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(37, 99, 235, 0.2),
+          transparent
+        );
+        pointer-events: none;
+        z-index: 9997;
+        filter: blur(12px);
+        transition: all 0.2s ease;
+      }
+
+      /* Ripple effect on click */
+      .ripple-effect {
+        position: fixed;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #60a5fa, transparent);
+        pointer-events: none;
+        z-index: 9996;
+        animation: ripple 1s ease-out forwards;
+      }
+
+      @keyframes ripple {
+        0% {
+          transform: scale(0);
+          opacity: 0.8;
+        }
+        100% {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+
+      /* Glow effect on hover for cards */
+      .hover-glow {
+        transition: all 0.3s ease;
+      }
+
+      .hover-glow:hover {
+        box-shadow: 0 0 30px rgba(96, 165, 250, 0.5);
+        transform: translateY(-5px) scale(1.02);
+      }
+
+      /* Social icons hover effect */
+      .social-icon {
+        transition: all 0.3s ease;
+        display: inline-block;
+      }
+
+      .social-icon:hover {
+        transform: translateY(-5px) scale(1.2);
+        filter: drop-shadow(0 0 15px #60a5fa);
+      }
+
+      /* Chatbot styles */
+      .chat-container {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 350px;
+        height: 500px;
+        background: #1f2937;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        display: none;
+        flex-direction: column;
+        z-index: 1000;
+        border: 1px solid #374151;
+      }
+
+      .chat-container.open {
+        display: flex;
+      }
+
+      .chat-header {
+        padding: 15px;
+        background: #2563eb;
+        border-radius: 12px 12px 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .chat-messages {
+        flex: 1;
+        padding: 15px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .message {
+        max-width: 80%;
+        padding: 10px 15px;
+        border-radius: 15px;
+        margin: 5px 0;
+        line-height: 1.4;
+        white-space: pre-wrap;
+        animation: messagePop 0.3s ease;
+      }
+
+      @keyframes messagePop {
+        0% {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .user-message {
+        background: #2563eb;
+        color: white;
+        align-self: flex-end;
+        border-bottom-right-radius: 5px;
+      }
+
+      .bot-message {
+        background: #374151;
+        color: white;
+        align-self: flex-start;
+        border-bottom-left-radius: 5px;
+      }
+
+      .chat-input-area {
+        padding: 15px;
+        border-top: 1px solid #374151;
+        display: flex;
+        gap: 10px;
+      }
+
+      .chat-input {
+        flex: 1;
+        padding: 10px;
+        border-radius: 20px;
+        border: none;
+        background: #374151;
+        color: white;
+      }
+
+      .chat-input:focus {
+        outline: 2px solid #2563eb;
+      }
+
+      .chat-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #2563eb;
+        color: white;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 5px 20px rgba(37, 99, 235, 0.3);
+        z-index: 1000;
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s;
+      }
+
+      .chat-toggle:hover {
+        transform: scale(1.1) rotate(10deg);
+        box-shadow: 0 0 30px #60a5fa;
+      }
+
+      .typing-indicator {
+        display: flex;
+        gap: 5px;
+        padding: 10px 15px;
+        background: #374151;
+        border-radius: 15px;
+        width: fit-content;
+      }
+
+      .typing-indicator span {
+        width: 8px;
+        height: 8px;
+        background: #9ca3af;
+        border-radius: 50%;
+        animation: typing 1s infinite;
+      }
+
+      .typing-indicator span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .typing-indicator span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes typing {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .close-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+      }
+
+      .suggestion-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 10px 15px;
+        border-top: 1px solid #374151;
+      }
+
+      .chip {
+        background: #374151;
+        color: #9ca3af;
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .chip:hover {
+        background: #2563eb;
+        color: white;
+        transform: scale(1.05);
+        box-shadow: 0 0 20px #2563eb;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-950 text-white font-sans antialiased">
+    <!-- AI Mouse Trail Elements -->
+    <div class="cursor-trail" id="cursorTrail"></div>
+    <div class="cursor-trail-2" id="cursorTrail2"></div>
+    <div class="cursor-trail-3" id="cursorTrail3"></div>
+
+    <!-- ================= STICKY NAV ================= -->
+    <nav
+      class="fixed top-0 w-full bg-gray-900/90 backdrop-blur-lg border-b border-gray-800/60 z-50"
+    >
+      <div
+        class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <a href="#home" class="text-2xl font-bold gradient-text">Tharun S P</a>
+        <div class="hidden md:flex gap-8 text-sm font-medium">
+          <a href="#home" class="hover:text-blue-400 transition-colors">HOME</a>
+          <a href="#skills" class="hover:text-blue-400 transition-colors"
+            >SKILLS</a
+          >
+          <a href="#internship" class="hover:text-blue-400 transition-colors"
+            >INTERNSHIP</a
+          >
+          <a href="#project" class="hover:text-blue-400 transition-colors"
+            >PROJECT</a
+          >
+          <a href="#contact" class="hover:text-blue-400 transition-colors"
+            >CONTACT</a
+          >
+        </div>
+        <div class="md:hidden text-2xl text-gray-300">☰</div>
+      </div>
+    </nav>
+
+    <!-- ================= HERO SECTION ================= -->
+    <section
+      id="home"
+      class="min-h-screen flex items-center justify-center px-6 pt-20 md:pt-0 bg-[radial-gradient(ellipse_at_top,_#1e293b,_#030712)]"
+    >
+      <div class="max-w-3xl text-center">
+        <span
+          class="inline-block bg-blue-500/10 text-blue-400 border border-blue-500/20 px-4 py-1.5 rounded-full text-sm font-medium mb-6 animate-pulse"
+          >🔹 CSE 3rd year · Full Stack Focus</span
+        >
+        <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+          I'm <span class="gradient-text">Tharun S P</span><br />Full Stack
+          Developer
+        </h1>
+        <p
+          class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
+        >
+          Java • Spring Boot • Python • DSA. I build clean backend systems and
+          solve real problems with code. Currently diving deep into scalable
+          applications.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mt-10">
+          <a
+            href="#skills"
+            class="bg-gray-800 hover:bg-gray-700 border border-gray-700 px-7 py-3.5 rounded-full text-sm font-medium transition flex items-center gap-2 hover-glow"
+            >📁 explore work</a
+          >
+          <a
+            href="#contact"
+            class="bg-blue-600 hover:bg-blue-700 px-7 py-3.5 rounded-full text-sm font-medium transition flex items-center gap-2 hover-glow"
+            >✉️ contact me</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SKILLS SECTION ================= -->
+    <section id="skills" class="py-28 bg-gray-900/40">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <span class="text-blue-400 font-semibold tracking-widest text-sm"
+            >⚡ TECHNICAL STRENGTHS</span
+          >
+          <h2 class="text-4xl font-bold mt-3">Skills & Expertise</h2>
+          <div class="w-20 h-1 bg-blue-500 mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- languages card -->
+          <div
+            class="bg-gray-800/70 p-8 rounded-3xl border border-gray-700/80 shadow-2xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 hover-glow"
+          >
+            <div
+              class="w-14 h-14 bg-blue-500/20 rounded-2xl flex items-center justify-center mb-5 text-3xl"
+            >
+              ⌨️
+            </div>
+            <h3 class="text-2xl font-semibold mb-4 text-blue-400">Languages</h3>
+            <ul class="space-y-3 text-gray-300">
+              <li class="flex items-center">
+                <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>C++
+                (advanced)
+              </li>
+              <li class="flex items-center">
+                <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>Java
+                (core, OOP, collections)
+              </li>
+              <li class="flex items-center">
+                <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span
+                >Python (scripting, basics)
+              </li>
+            </ul>
+          </div>
+          <!-- framework card -->
+          <div
+            class="bg-gray-800/70 p-8 rounded-3xl border border-gray-700/80 shadow-2xl transition-all duration-300 hover:-translate-y-1 hover-glow"
+          >
+            <div
+              class="w-14 h-14 bg-blue-500/20 rounded-2xl flex items-center justify-center mb-5 text-3xl"
+            >
+              🧩
+            </div>
+            <h3 class="text-2xl font-semibold mb-4 text-blue-400">
+              Frameworks
+            </h3>
+            <ul class="space-y-3 text-gray-300">
+              <li class="flex items-center">
+                <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span
+                >Spring Boot (basic REST, DI)
+              </li>
+              <li class="flex items-center">
+                <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span
+                >Hibernate (familiar)
+              </li>
+              <li class="flex items-center">
+                <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span
+                >Tailwind (this site!)
+              </li>
+            </ul>
+          </div>
+          <!-- tools card -->
+          <div
+            class="bg-gray-800/70 p-8 rounded-3xl border border-gray-700/80 shadow-2xl transition-all duration-300 hover:-translate-y-1 hover-glow"
+          >
+            <div
+              class="w-14 h-14 bg-blue-500/20 rounded-2xl flex items-center justify-center mb-5 text-3xl"
+            >
+              🔧
+            </div>
+            <h3 class="text-2xl font-semibold mb-4 text-blue-400">
+              Tools & Platforms
+            </h3>
+            <ul class="space-y-3 text-gray-300">
+              <li class="flex items-center">
+                <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>Git /
+                GitHub (daily)
+              </li>
+              <li class="flex items-center">
+                <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>VS
+                Code, IntelliJ
+              </li>
+              <li class="flex items-center">
+                <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span
+                >Postman, Linux basics
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= INTERNSHIPS SECTION ================= -->
+    <section id="internship" class="py-28">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <span class="text-blue-400 font-semibold tracking-widest text-sm"
+            >📁 REAL-WORLD EXPERIENCE</span
+          >
+          <h2 class="text-4xl font-bold mt-3">Internships & Project</h2>
+          <div class="w-20 h-1 bg-blue-500 mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- java internship -->
+          <div
+            class="bg-gray-800/70 p-8 rounded-3xl border border-gray-700 shadow-xl hover:shadow-2xl transition hover:-translate-y-1 duration-200 hover-glow"
+          >
+            <span
+              class="bg-blue-500/20 text-blue-300 text-xs px-3 py-1.5 rounded-full"
+              >Dec 2025 – Jan 2026</span
+            >
+            <h3 class="text-2xl font-semibold text-blue-400 mt-5 mb-2">
+              Java developer intern
+            </h3>
+            <p class="text-gray-400 text-sm mb-4">Remote · Full Time</p>
+            <ul
+              class="list-disc list-inside text-gray-300 space-y-2 marker:text-blue-400"
+            >
+              <li>
+                Implemented OOP solutions (inheritance, polymorphism, exception
+                handling)
+              </li>
+              <li>Built mini projects: banking system, employee management</li>
+              <li>Managed code with Git, maintained GitHub repositories</li>
+              <li>Daily documentation & LinkedIn progress threads</li>
+            </ul>
+          </div>
+          <!-- python internship -->
+          <div
+            class="bg-gray-800/70 p-8 rounded-3xl border border-gray-700 shadow-xl hover:shadow-2xl transition hover:-translate-y-1 duration-200 hover-glow"
+          >
+            <span
+              class="bg-blue-500/20 text-blue-300 text-xs px-3 py-1.5 rounded-full"
+              >Dec 2025 – Jan 2026</span
+            >
+            <h3 class="text-2xl font-semibold text-blue-400 mt-5 mb-2">
+              Python developer intern
+            </h3>
+            <p class="text-gray-400 text-sm mb-4">Remote · Full time</p>
+            <ul
+              class="list-disc list-inside text-gray-300 space-y-2 marker:text-blue-400"
+            >
+              <li>
+                Wrote automation scripts for file handling & data processing
+              </li>
+              <li>Created basic backend prototypes using Flask (intro)</li>
+              <li>Pushed all code to GitHub, used branching for features</li>
+              <li>Shared weekly learnings on LinkedIn</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- project card -->
+        <div id="project" class="mt-20 scroll-mt-24">
+          <div class="max-w-4xl mx-auto">
+            <div
+              class="bg-gradient-to-br from-gray-800 to-gray-900 p-10 rounded-3xl border border-blue-500/30 shadow-2xl relative overflow-hidden hover-glow"
+            >
+              <div
+                class="absolute -top-10 -right-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl"
+              ></div>
+              <span
+                class="relative inline-block bg-blue-600/20 text-blue-300 px-4 py-1.5 rounded-full text-sm font-medium mb-5 border border-blue-500/30"
+                >🌟 main project</span
+              >
+              <h3 class="text-3xl md:text-4xl font-bold text-white mb-3">
+                Duty Chart Allocation System
+              </h3>
+              <p class="flex items-center gap-3 text-gray-300 mb-5">
+                <span class="bg-gray-700 px-3 py-1 rounded-full text-sm"
+                  >Python</span
+                >
+                <span class="text-sm text-blue-300"
+                  >Fully Automated · Logic Based</span
+                >
+              </p>
+              <ul class="grid sm:grid-cols-2 gap-2 text-gray-200 mb-5">
+                <li class="flex items-center gap-2">
+                  <span class="text-blue-400 text-xl">✓</span> Allocates faculty
+                  exam duties
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-blue-400 text-xl">✓</span> constraint‑based
+                  allocation logic
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-blue-400 text-xl">✓</span> reduces manual
+                  errors by 90%
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-blue-400 text-xl">✓</span> fair &
+                  transparent distribution
+                </li>
+              </ul>
+              <div
+                class="border-t border-gray-700 pt-5 text-sm text-gray-400 flex gap-6"
+              >
+                <span>⚙️ Built with Pure Python</span>
+                <span>📊 Used by Faculty (Prototype)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT SECTION ================= -->
+    <footer id="contact" class="bg-gray-900 border-t border-gray-800 py-20">
+      <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-12">
+        <!-- left side: contact details with GitHub and LinkedIn -->
+        <div>
+          <h3 class="text-3xl font-bold gradient-text mb-6">Let's Talk</h3>
+          <p class="text-gray-400 mb-8 text-lg">
+            I'm currently looking for internship opportunities and
+            collaborations. Feel free to reach out!
+          </p>
+          <div
+            class="bg-gray-800/60 p-7 rounded-3xl border border-gray-700 space-y-5"
+          >
+            <div class="flex items-center gap-4">
+              <div
+                class="w-11 h-11 bg-blue-500/20 rounded-2xl flex items-center justify-center text-blue-400 text-2xl"
+              >
+                👤
+              </div>
+              <div>
+                <span class="text-gray-500 text-xs">Name</span><br /><span
+                  class="font-semibold text-white text-lg"
+                  >Tharun S P</span
+                >
+              </div>
+            </div>
+
+            <!-- GitHub Link with Image -->
+            <div class="flex items-center gap-4">
+              <div
+                class="w-11 h-11 bg-blue-500/20 rounded-2xl flex items-center justify-center text-blue-400 text-2xl"
+              >
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
+                  alt="GitHub"
+                  class="w-6 h-6 invert"
+                />
+              </div>
+              <div>
+                <span class="text-gray-500 text-xs">GitHub</span><br />
+                <a
+                  href="https://github.com/tharun902"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="font-semibold text-white text-lg hover:text-blue-400 transition-colors social-icon inline-block"
+                >
+                  @tharunsp
+                </a>
+              </div>
+            </div>
+
+            <!-- LinkedIn Link with Image -->
+            <div class="flex items-center gap-4">
+              <div
+                class="w-11 h-11 bg-blue-500/20 rounded-2xl flex items-center justify-center text-blue-400 text-2xl"
+              >
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg"
+                  alt="LinkedIn"
+                  class="w-6 h-6"
+                />
+              </div>
+              <div>
+                <span class="text-gray-500 text-xs">LinkedIn</span><br />
+                <a
+                  href="https://www.linkedin.com/in/tharun-s-p-97780a301?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Bp6vR2DO9RgCKshjfDdUnOQ%3D%3D"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="font-semibold text-white text-lg hover:text-blue-400 transition-colors social-icon inline-block"
+                >
+                  /in/tharunsp
+                </a>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <div
+                class="w-11 h-11 bg-blue-500/20 rounded-2xl flex items-center justify-center text-blue-400 text-2xl"
+              >
+                ✉️
+              </div>
+              <div>
+                <span class="text-gray-500 text-xs">Email</span><br /><span
+                  class="font-semibold text-white text-lg break-all"
+                  >tharunpalani777@gmail.com</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-6 mt-8 text-3xl text-gray-600">
+            <a
+              href="https://github.com/tharunsp"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-icon"
+            >
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
+                alt="GitHub"
+                class="w-8 h-8 invert hover:scale-110 transition"
+              />
+            </a>
+            <a
+              href="https://linkedin.com/in/tharunsp"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-icon"
+            >
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg"
+                alt="LinkedIn"
+                class="w-8 h-8 hover:scale-110 transition"
+              />
+            </a>
+            <span
+              class="hover:text-blue-400 transition cursor-default social-icon"
+              >⌨️</span
+            >
+          </div>
+        </div>
+
+        <!-- right side: contact form -->
+        <div
+          class="bg-gray-800/50 p-8 rounded-3xl border border-gray-700 backdrop-blur-sm hover-glow"
+        >
+          <h4 class="text-2xl font-semibold mb-6">Send a Message</h4>
+          <form
+            class="space-y-5"
+            onsubmit="event.preventDefault(); alert('📬 Thanks for testing the portfolio — this is a static demo. but feel free to connect via email!');"
+          >
+            <div>
+              <label class="text-sm text-gray-400 block mb-1">Your Name</label>
+              <input
+                type="text"
+                placeholder="e.g. Alex"
+                class="w-full p-4 rounded-xl bg-gray-900 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition"
+              />
+            </div>
+            <div>
+              <label class="text-sm text-gray-400 block mb-1">Email</label>
+              <input
+                type="email"
+                placeholder="alex@example.com"
+                class="w-full p-4 rounded-xl bg-gray-900 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition"
+              />
+            </div>
+            <div>
+              <label class="text-sm text-gray-400 block mb-1">Message</label>
+              <textarea
+                rows="4"
+                placeholder="I'd like to discuss ..."
+                class="w-full p-4 rounded-xl bg-gray-900 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition"
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              class="bg-blue-600 hover:bg-blue-700 w-full py-4 rounded-xl font-semibold text-lg transition shadow-lg shadow-blue-600/30 hover-glow"
+            >
+              📨 Send Message
+            </button>
+            <p class="text-center text-gray-500 text-xs pt-2">
+              * This is a Demo — no data sent
+            </p>
+          </form>
+        </div>
+      </div>
+
+      <div
+        class="text-center text-gray-600 text-sm border-t border-gray-800/60 mt-16 pt-8"
+      >
+        © 2026 Tharun S P — built with Tailwind · all rights reserved
+      </div>
+    </footer>
+
+    <!-- ================= AI CHATBOT COMPONENT ================= -->
+    <div class="chat-container" id="chatContainer">
+      <div class="chat-header">
+        <span class="font-semibold">🤖 Tharun's AI Assistant</span>
+        <button class="close-btn" onclick="toggleChat()">×</button>
+      </div>
+
+      <div class="chat-messages" id="chatMessages">
+        <div class="message bot-message">
+          👋 Hi! I'm Tharun's virtual assistant. Ask me anything about: • Skills
+          & experience • Projects • Contact info • Education
+        </div>
+      </div>
+
+      <!-- Suggestion chips -->
+      <div class="suggestion-chips">
+        <span class="chip" onclick="quickQuestion('skills')"
+          >What are his skills?</span
+        >
+        <span class="chip" onclick="quickQuestion('internship')"
+          >Internship experience</span
+        >
+        <span class="chip" onclick="quickQuestion('project')"
+          >Main project</span
+        >
+        <span class="chip" onclick="quickQuestion('contact')"
+          >Contact info</span
+        >
+      </div>
+
+      <div class="chat-input-area">
+        <input
+          type="text"
+          class="chat-input"
+          id="userInput"
+          placeholder="Ask me anything..."
+          onkeypress="handleKeyPress(event)"
+        />
+        <button
+          onclick="sendMessage()"
+          class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-full text-white hover-glow"
+        >
+          Send
+        </button>
+      </div>
+    </div>
+
+    <button class="chat-toggle" onclick="toggleChat()" id="chatToggle">
+      💬
+    </button>
+
+    <script>
+      // AI Mouse Trail Effect
+      const trail = document.getElementById("cursorTrail");
+      const trail2 = document.getElementById("cursorTrail2");
+      const trail3 = document.getElementById("cursorTrail3");
+
+      let mouseX = 0,
+        mouseY = 0;
+      let trailX = 0,
+        trailY = 0;
+      let trail2X = 0,
+        trail2Y = 0;
+      let trail3X = 0,
+        trail3Y = 0;
+
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        // Create ripple effect on click
+        if (e.buttons === 1) {
+          // Left mouse button pressed
+          createRipple(e.clientX, e.clientY);
+        }
+      });
+
+      document.addEventListener("mousedown", (e) => {
+        createRipple(e.clientX, e.clientY);
+      });
+
+      function createRipple(x, y) {
+        const ripple = document.createElement("div");
+        ripple.className = "ripple-effect";
+        ripple.style.left = x - 50 + "px";
+        ripple.style.top = y - 50 + "px";
+        document.body.appendChild(ripple);
+
+        setTimeout(() => {
+          ripple.remove();
+        }, 1000);
+      }
+
+      // Smooth trail animation
+      function animateTrail() {
+        // First trail (fastest)
+        trailX += (mouseX - trailX) * 0.3;
+        trailY += (mouseY - trailY) * 0.3;
+
+        // Second trail (medium)
+        trail2X += (mouseX - trail2X) * 0.15;
+        trail2Y += (mouseY - trail2Y) * 0.15;
+
+        // Third trail (slowest)
+        trail3X += (mouseX - trail3X) * 0.08;
+        trail3Y += (mouseY - trail3Y) * 0.08;
+
+        trail.style.left = trailX - 10 + "px";
+        trail.style.top = trailY - 10 + "px";
+
+        trail2.style.left = trail2X - 20 + "px";
+        trail2.style.top = trail2Y - 20 + "px";
+
+        trail3.style.left = trail3X - 30 + "px";
+        trail3.style.top = trail3Y - 30 + "px";
+
+        requestAnimationFrame(animateTrail);
+      }
+
+      animateTrail();
+
+      // Chatbot functionality
+      const chatContainer = document.getElementById("chatContainer");
+      const chatMessages = document.getElementById("chatMessages");
+      const userInput = document.getElementById("userInput");
+
+      function toggleChat() {
+        chatContainer.classList.toggle("open");
+      }
+
+      function handleKeyPress(e) {
+        if (e.key === "Enter") {
+          sendMessage();
+        }
+      }
+
+      function addMessage(text, isUser) {
+        const messageDiv = document.createElement("div");
+        messageDiv.className = `message ${
+          isUser ? "user-message" : "bot-message"
+        }`;
+        messageDiv.textContent = text;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function showTypingIndicator() {
+        const indicator = document.createElement("div");
+        indicator.className = "typing-indicator";
+        indicator.id = "typingIndicator";
+        for (let i = 0; i < 3; i++) {
+          const span = document.createElement("span");
+          indicator.appendChild(span);
+        }
+        chatMessages.appendChild(indicator);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function removeTypingIndicator() {
+        const indicator = document.getElementById("typingIndicator");
+        if (indicator) {
+          indicator.remove();
+        }
+      }
+
+      function getBotResponse(userMessage) {
+        const message = userMessage.toLowerCase();
+
+        // Knowledge base about Tharun
+        if (
+          message.includes("skill") ||
+          message.includes("technologies") ||
+          message.includes("know")
+        ) {
+          return "💻 Tharun's technical skills include:\n\n• C++ (advanced)\n• Java (Core, OOP, Collections)\n• Python (scripting)\n• Spring Boot (basic)\n• Git/GitHub\n• VS Code, IntelliJ\n• Postman, Linux basics";
+        } else if (
+          message.includes("internship") ||
+          message.includes("experience") ||
+          message.includes("work")
+        ) {
+          return "📁 Tharun completed two internships (Dec 2025 - Jan 2026):\n\n🔹 Java Developer Intern:\n• Implemented OOP solutions\n• Built mini projects (banking system, employee management)\n• Managed GitHub repositories\n\n🔹 Python Developer Intern:\n• Automation scripts\n• Flask backend prototypes\n• Version control with Git";
+        } else if (
+          message.includes("project") ||
+          message.includes("built") ||
+          message.includes("create")
+        ) {
+          return "🌟 Main Project: Duty Chart Allocation System\n\n• Built with Python\n• Automates faculty exam duty allocation\n• Constraint-based allocation logic\n• Reduces manual errors by 90%\n• Ensures fair & transparent distribution";
+        } else if (
+          message.includes("contact") ||
+          message.includes("email") ||
+          message.includes("github") ||
+          message.includes("linkedin") ||
+          message.includes("reach")
+        ) {
+          return "📬 You can reach Tharun at:\n\n📧 Email: tharunpalani777@gmail.com\n🐱 GitHub: @tharunsp\n🔗 LinkedIn: /in/tharunsp\n\nHe's open to internship opportunities and collaborations!";
+        } else if (
+          message.includes("education") ||
+          message.includes("study") ||
+          message.includes("college") ||
+          message.includes("university")
+        ) {
+          return "🎓 Tharun is in his 3rd year of Computer Science Engineering, passionate about full-stack development and Data Structures & Algorithms.";
+        } else if (
+          message.includes("hello") ||
+          message.includes("hi") ||
+          message.includes("hey")
+        ) {
+          return "👋 Hello! How can I help you learn more about Tharun? You can ask about his skills, internships, projects, or contact info.";
+        } else if (message.includes("thank")) {
+          return "😊 You're welcome! Feel free to ask if you have more questions about Tharun.";
+        } else {
+          return "🤔 I can tell you about Tharun's:\n• Skills & technologies\n• Internship experience\n• Main project\n• Education\n• Contact information\n\nWhat would you like to know?";
+        }
+      }
+
+      function sendMessage() {
+        const message = userInput.value.trim();
+        if (!message) return;
+
+        // Add user message
+        addMessage(message, true);
+        userInput.value = "";
+
+        // Show typing indicator
+        showTypingIndicator();
+
+        // Simulate AI thinking
+        setTimeout(() => {
+          removeTypingIndicator();
+          const response = getBotResponse(message);
+          addMessage(response, false);
+        }, 800);
+      }
+
+      // Quick question function for suggestion chips
+      function quickQuestion(type) {
+        let question = "";
+        switch (type) {
+          case "skills":
+            question = "What are his skills?";
+            break;
+          case "internship":
+            question = "Tell me about his internship experience";
+            break;
+          case "project":
+            question = "What's his main project?";
+            break;
+          case "contact":
+            question = "How can I contact him?";
+            break;
+        }
+
+        // Add as user message
+        addMessage(question, true);
+
+        // Show typing and respond
+        showTypingIndicator();
+        setTimeout(() => {
+          removeTypingIndicator();
+          const response = getBotResponse(question);
+          addMessage(response, false);
+        }, 800);
+      }
+    </script>
+  </body>
+</html>

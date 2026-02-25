@@ -1,0 +1,2165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tharun S P | Systems Engineer</title>
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* ===== RESET & BASE ===== */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #3b82f6;
+        --secondary: #2dd4bf;
+        --accent: #8b5cf6;
+        --dark: #0f172a;
+        --darker: #020617;
+        --light: #f8fafc;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 80px;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, sans-serif;
+        background: var(--darker);
+        color: var(--light);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* ===== BACKGROUND EFFECTS ===== */
+      .noise-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc0IiBudW1PY3RhdmVzPSIzIiAvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNmKSIgb3BhY2l0eT0iMC4wNCIgLz48L3N2Zz4=");
+        opacity: 0.4;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .gradient-orb {
+        position: fixed;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        filter: blur(80px);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .orb-1 {
+        top: -200px;
+        right: -200px;
+        background: radial-gradient(
+          circle,
+          rgba(59, 130, 246, 0.2),
+          transparent 70%
+        );
+        animation: float1 20s infinite;
+      }
+
+      .orb-2 {
+        bottom: -200px;
+        left: -200px;
+        background: radial-gradient(
+          circle,
+          rgba(45, 212, 191, 0.15),
+          transparent 70%
+        );
+        animation: float2 18s infinite;
+      }
+
+      .orb-3 {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 800px;
+        height: 800px;
+        background: radial-gradient(
+          circle,
+          rgba(139, 92, 246, 0.1),
+          transparent 70%
+        );
+        animation: pulse 15s infinite;
+      }
+
+      @keyframes float1 {
+        0%,
+        100% {
+          transform: translate(0, 0);
+        }
+        50% {
+          transform: translate(30px, 20px);
+        }
+      }
+
+      @keyframes float2 {
+        0%,
+        100% {
+          transform: translate(0, 0);
+        }
+        50% {
+          transform: translate(-20px, -30px);
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+          opacity: 0.6;
+          transform: translate(-50%, -50%) scale(1.1);
+        }
+      }
+
+      .grid-lines {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(
+            rgba(59, 130, 246, 0.03) 1px,
+            transparent 1px
+          ),
+          linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+        background-size: 50px 50px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* ===== TYPOGRAPHY ===== */
+      .gradient-text {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--secondary),
+          var(--accent)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        background-size: 200% 200%;
+        animation: gradientFlow 8s infinite;
+      }
+
+      @keyframes gradientFlow {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      .glitch {
+        animation: glitch 5s infinite;
+      }
+
+      @keyframes glitch {
+        0%,
+        100% {
+          text-shadow: 2px 2px var(--primary), -2px -2px var(--secondary);
+        }
+        25% {
+          text-shadow: -2px 2px var(--secondary), 2px -2px var(--primary);
+        }
+        50% {
+          text-shadow: 3px -1px var(--accent), -3px 1px var(--primary);
+        }
+      }
+
+      /* ===== LAYOUT ===== */
+      .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      section {
+        position: relative;
+        z-index: 1;
+        padding: 5rem 0;
+      }
+
+      @media (min-width: 640px) {
+        section {
+          padding: 6rem 0;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        section {
+          padding: 7rem 0;
+        }
+      }
+
+      /* ===== NAVIGATION ===== */
+      .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(15, 23, 42, 0.8);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        z-index: 100;
+      }
+
+      .nav-container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-decoration: none;
+      }
+
+      .nav-menu {
+        display: none;
+        gap: 2rem;
+      }
+
+      .nav-link {
+        color: #fff;
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 500;
+        padding: 0.5rem 0;
+        position: relative;
+        transition: color 0.3s;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        transition: width 0.3s;
+      }
+
+      .nav-link:hover {
+        color: var(--primary);
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      @media (min-width: 768px) {
+        .nav-menu {
+          display: flex;
+        }
+        .mobile-menu-btn {
+          display: none;
+        }
+      }
+
+      /* ===== HERO SECTION ===== */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding-top: 5rem;
+      }
+
+      .hero-grid {
+        display: grid;
+        gap: 3rem;
+        align-items: center;
+      }
+
+      @media (min-width: 768px) {
+        .hero-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 4rem;
+        }
+      }
+
+      .hero-badge {
+        display: inline-block;
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        border-radius: 9999px;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+      }
+
+      .hero-badge i {
+        margin-right: 0.5rem;
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+      }
+
+      .hero-name {
+        font-size: 3rem;
+        display: block;
+        margin: 0.5rem 0;
+      }
+
+      .hero-subtitle {
+        font-size: 2rem;
+        color: #d1d5db;
+        display: block;
+        margin-top: 0.5rem;
+      }
+
+      .hero-text {
+        color: #9ca3af;
+        font-size: 1.125rem;
+        max-width: 36rem;
+        margin-bottom: 2rem;
+      }
+
+      @media (min-width: 640px) {
+        .hero-title {
+          font-size: 3rem;
+        }
+        .hero-name {
+          font-size: 3.5rem;
+        }
+        .hero-subtitle {
+          font-size: 2.5rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .hero-title {
+          font-size: 3.5rem;
+        }
+        .hero-name {
+          font-size: 4rem;
+        }
+        .hero-subtitle {
+          font-size: 3rem;
+        }
+      }
+
+      /* ===== BUTTONS ===== */
+      .btn-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.875rem 2rem;
+        border-radius: 9999px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        box-shadow: 0 10px 20px -10px rgba(59, 130, 246, 0.5);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 20px 30px -15px rgba(59, 130, 246, 0.6);
+      }
+
+      .btn-secondary {
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        color: white;
+        backdrop-filter: blur(10px);
+      }
+
+      .btn-secondary:hover {
+        border-color: var(--primary);
+        background: rgba(15, 23, 42, 0.95);
+        transform: translateY(-3px);
+      }
+
+      /* ===== PROFILE IMAGE ===== */
+      .profile-container {
+        position: relative;
+        width: min(380px, 80vw);
+        height: min(380px, 80vw);
+        margin: 0 auto;
+      }
+
+      .profile-wrapper {
+        width: 100%;
+        height: 100%;
+        border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%;
+        overflow: hidden;
+        animation: morph 12s infinite;
+        box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.6),
+          0 0 0 2px rgba(59, 130, 246, 0.3);
+      }
+
+      @keyframes morph {
+        0%,
+        100% {
+          border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%;
+        }
+        25% {
+          border-radius: 60% 40% 40% 60% / 60% 60% 40% 40%;
+        }
+        50% {
+          border-radius: 50%;
+        }
+        75% {
+          border-radius: 30% 70% 70% 30% / 50% 30% 70% 50%;
+        }
+      }
+
+      .profile-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+
+      .profile-img:hover {
+        transform: scale(1.05);
+      }
+
+      .glow-ring {
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        right: -15px;
+        bottom: -15px;
+        border-radius: inherit;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--secondary),
+          var(--accent)
+        );
+        opacity: 0.3;
+        filter: blur(30px);
+        z-index: -1;
+        animation: glow 4s infinite;
+      }
+
+      @keyframes glow {
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(1.05);
+        }
+      }
+
+      .profile-badge {
+        position: absolute;
+        bottom: -3rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(15, 23, 42, 0.8);
+        backdrop-filter: blur(8px);
+        padding: 0.75rem 1.5rem;
+        border-radius: 9999px;
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        font-size: 0.875rem;
+        color: #9ca3af;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        white-space: nowrap;
+      }
+
+      .profile-badge i {
+        color: var(--primary);
+      }
+
+      /* ===== SECTION HEADERS ===== */
+      .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .section-tag {
+        color: var(--primary);
+        font-size: 0.875rem;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        display: inline-block;
+        margin-bottom: 1rem;
+      }
+
+      .section-tag i {
+        margin-right: 0.5rem;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+
+      .section-divider {
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        margin: 0 auto;
+        border-radius: 9999px;
+      }
+
+      @media (min-width: 640px) {
+        .section-title {
+          font-size: 3rem;
+        }
+      }
+
+      /* ===== CARDS ===== */
+      .card {
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        border-radius: 2rem;
+        padding: 2rem;
+        transition: all 0.4s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card:hover {
+        transform: translateY(-8px) scale(1.02);
+        border-color: rgba(59, 130, 246, 0.4);
+        box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(59, 130, 246, 0.1),
+          transparent
+        );
+        transition: left 0.6s;
+      }
+
+      .card:hover::before {
+        left: 100%;
+      }
+
+      .skill-icon {
+        width: 4rem;
+        height: 4rem;
+        background: linear-gradient(
+          135deg,
+          rgba(59, 130, 246, 0.1),
+          rgba(45, 212, 191, 0.1)
+        );
+        border-radius: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s;
+      }
+
+      .skill-icon:hover {
+        transform: translateY(-5px) scale(1.1);
+        background: linear-gradient(
+          135deg,
+          rgba(59, 130, 246, 0.2),
+          rgba(45, 212, 191, 0.2)
+        );
+      }
+
+      .card-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      .card-list {
+        list-style: none;
+        color: #d1d5db;
+      }
+
+      .card-list li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.75rem;
+        transition: transform 0.3s;
+      }
+
+      .card-list li:hover {
+        transform: translateX(5px);
+      }
+
+      .card-list li::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        border-radius: 50%;
+        margin-right: 0.75rem;
+        transition: transform 0.3s;
+      }
+
+      .card-list li:hover::before {
+        transform: scale(1.5);
+      }
+
+      /* ===== GRIDS ===== */
+      .skills-grid {
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      .internships-grid {
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      @media (min-width: 640px) {
+        .skills-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .skills-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 2rem;
+        }
+
+        .internships-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 2rem;
+        }
+      }
+
+      /* ===== INTERNSHIP CARD ===== */
+      .internship-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .internship-date {
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        border-radius: 9999px;
+        padding: 0.25rem 1rem;
+        font-size: 0.75rem;
+        color: var(--primary);
+      }
+
+      .internship-date i {
+        margin-right: 0.25rem;
+      }
+
+      .internship-icon {
+        font-size: 2rem;
+        color: rgba(59, 130, 246, 0.3);
+      }
+
+      .internship-location {
+        color: #6b7280;
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .internship-list {
+        list-style: none;
+        color: #d1d5db;
+        font-size: 0.875rem;
+      }
+
+      .internship-list li {
+        display: flex;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .internship-list i {
+        color: var(--primary);
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+      }
+
+      /* ===== PROJECT CARD ===== */
+      .project-card {
+        max-width: 896px;
+        margin: 3rem auto 0;
+      }
+
+      .project-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        border-radius: 9999px;
+        padding: 0.5rem 1rem;
+        color: #93c5fd;
+        font-size: 0.875rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .project-title {
+        font-size: 2rem;
+        font-weight: bold;
+        color: white;
+        margin-bottom: 1rem;
+      }
+
+      @media (min-width: 640px) {
+        .project-title {
+          font-size: 2.5rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .project-title {
+          font-size: 3rem;
+        }
+      }
+
+      .project-tags {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.75rem;
+        color: #9ca3af;
+        margin-bottom: 1.5rem;
+      }
+
+      .project-tag {
+        background: #1f2937;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .project-tag i {
+        color: var(--primary);
+      }
+
+      .project-features {
+        display: grid;
+        gap: 1rem;
+        color: #d1d5db;
+        margin-bottom: 1.5rem;
+      }
+
+      @media (min-width: 640px) {
+        .project-features {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .project-features div {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .project-features i {
+        color: var(--primary);
+      }
+
+      .project-footer {
+        border-top: 1px solid #1f2937;
+        padding-top: 1.25rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        color: #6b7280;
+        font-size: 0.875rem;
+      }
+
+      .project-footer span {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .project-footer i {
+        color: var(--primary);
+      }
+
+      /* ===== CONTACT SECTION ===== */
+      .contact-grid {
+        display: grid;
+        gap: 3rem;
+      }
+
+      @media (min-width: 1024px) {
+        .contact-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 4rem;
+        }
+      }
+
+      .contact-info {
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        border-radius: 2rem;
+        padding: 1.5rem;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .contact-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        background: rgba(59, 130, 246, 0.1);
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-size: 1.25rem;
+        transition: transform 0.3s;
+      }
+
+      .contact-item:hover .contact-icon {
+        transform: rotate(12deg);
+      }
+
+      .contact-label {
+        color: #6b7280;
+        font-size: 0.75rem;
+      }
+
+      .contact-value {
+        font-weight: 500;
+      }
+
+      .contact-value a {
+        color: white;
+        text-decoration: none;
+      }
+
+      .contact-value a:hover {
+        color: var(--primary);
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .social-link {
+        width: 2.5rem;
+        height: 2.5rem;
+        background: rgba(59, 130, 246, 0.1);
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+
+      .social-link:hover {
+        background: rgba(59, 130, 246, 0.2);
+        transform: scale(1.1);
+      }
+
+      /* ===== CONTACT FORM ===== */
+      .contact-form {
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        border-radius: 2rem;
+        padding: 2rem;
+      }
+
+      .form-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .form-group {
+        position: relative;
+        margin-bottom: 1rem;
+      }
+
+      .form-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6b7280;
+      }
+
+      .form-icon.textarea {
+        top: 1rem;
+        transform: none;
+      }
+
+      .form-input,
+      .form-textarea {
+        width: 100%;
+        padding: 0.75rem 1rem 0.75rem 3rem;
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        border-radius: 0.75rem;
+        color: white;
+        font-size: 0.875rem;
+        transition: all 0.3s;
+      }
+
+      .form-textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      .form-input:focus,
+      .form-textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      }
+
+      .form-btn {
+        width: 100%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        border: none;
+        padding: 0.875rem;
+        border-radius: 9999px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 10px 20px -10px rgba(59, 130, 246, 0.5);
+      }
+
+      .form-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 20px 30px -15px rgba(59, 130, 246, 0.6);
+      }
+
+      .form-note {
+        text-align: center;
+        color: #4b5563;
+        font-size: 0.75rem;
+        margin-top: 0.5rem;
+      }
+
+      /* ===== FOOTER ===== */
+      .footer {
+        text-align: center;
+        color: #4b5563;
+        font-size: 0.875rem;
+        border-top: 1px solid rgba(59, 130, 246, 0.2);
+        padding: 2rem 1rem;
+        margin-top: 4rem;
+      }
+
+      .footer i {
+        margin-right: 0.5rem;
+      }
+
+      /* ===== ANIMATIONS ===== */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes fadeInRight {
+        from {
+          opacity: 0;
+          transform: translateX(40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .animate-left {
+        animation: fadeInLeft 0.8s ease-out;
+      }
+
+      .animate-right {
+        animation: fadeInRight 0.8s ease-out;
+      }
+
+      .animate-up {
+        animation: fadeInUp 0.8s ease-out;
+      }
+
+      .delay-1 {
+        animation-delay: 0.1s;
+      }
+      .delay-2 {
+        animation-delay: 0.2s;
+      }
+      .delay-3 {
+        animation-delay: 0.3s;
+      }
+      .delay-4 {
+        animation-delay: 0.4s;
+      }
+
+      /* ===== FLOATING CHATBOT STYLES ===== */
+      .chat-container {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 380px;
+        height: 550px;
+        background: rgba(15, 23, 42, 0.98);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        border-radius: 24px;
+        box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8);
+        display: none;
+        flex-direction: column;
+        z-index: 9999;
+        overflow: hidden;
+        transform-origin: bottom right;
+        animation: slideIn 0.3s ease;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: scale(0.8) translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+
+      .chat-container.open {
+        display: flex;
+      }
+
+      .chat-header {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        padding: 1.2rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .chat-header h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .chat-header h3 i {
+        font-size: 1.2rem;
+      }
+
+      .chat-close {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: transform 0.3s;
+      }
+
+      .chat-close:hover {
+        transform: rotate(90deg);
+      }
+
+      .chat-messages {
+        flex: 1;
+        padding: 1.2rem;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+
+      .message {
+        max-width: 85%;
+        padding: 0.8rem 1rem;
+        border-radius: 18px;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        animation: messageSlide 0.3s ease;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+
+      @keyframes messageSlide {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .user-message {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        align-self: flex-end;
+        border-bottom-right-radius: 4px;
+      }
+
+      .bot-message {
+        background: rgba(30, 41, 59, 0.8);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        color: #e2e8f0;
+        align-self: flex-start;
+        border-bottom-left-radius: 4px;
+      }
+
+      .chat-input-area {
+        padding: 1rem;
+        border-top: 1px solid rgba(59, 130, 246, 0.2);
+        display: flex;
+        gap: 0.5rem;
+        background: rgba(15, 23, 42, 0.8);
+      }
+
+      .chat-input {
+        flex: 1;
+        padding: 0.8rem 1rem;
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        border-radius: 30px;
+        background: rgba(15, 23, 42, 0.6);
+        color: white;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+      }
+
+      .chat-input:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      }
+
+      .chat-send {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        border: none;
+        color: white;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .chat-send:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+      }
+
+      .chat-send:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* Floating Chat Icon */
+      .chat-floating-icon {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        border: none;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+        box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+        z-index: 9998;
+        transition: all 0.3s;
+        animation: floatIcon 3s infinite;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .chat-floating-icon:hover {
+        transform: scale(1.1) rotate(10deg);
+        box-shadow: 0 25px 50px rgba(59, 130, 246, 0.6);
+      }
+
+      @keyframes floatIcon {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .chat-floating-icon .notification-dot {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 15px;
+        height: 15px;
+        background: #ef4444;
+        border-radius: 50%;
+        border: 2px solid white;
+        animation: pulse 2s infinite;
+      }
+
+      .typing-indicator {
+        display: flex;
+        gap: 4px;
+        padding: 0.8rem 1rem;
+        background: rgba(30, 41, 59, 0.8);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        border-radius: 18px;
+        width: fit-content;
+        align-self: flex-start;
+      }
+
+      .typing-indicator span {
+        width: 8px;
+        height: 8px;
+        background: var(--primary);
+        border-radius: 50%;
+        animation: typing 1.2s infinite;
+      }
+
+      .typing-indicator span:nth-child(2) {
+        animation-delay: 0.2s;
+        background: var(--secondary);
+      }
+
+      .typing-indicator span:nth-child(3) {
+        animation-delay: 0.4s;
+        background: var(--accent);
+      }
+
+      @keyframes typing {
+        0%,
+        60%,
+        100% {
+          transform: translateY(0);
+          opacity: 0.5;
+        }
+        30% {
+          transform: translateY(-10px);
+          opacity: 1;
+        }
+      }
+
+      .suggestion-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0.8rem 1rem;
+        border-top: 1px solid rgba(59, 130, 246, 0.1);
+      }
+
+      .chip {
+        background: rgba(30, 41, 59, 0.8);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        border-radius: 30px;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+        color: #94a3b8;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+
+      .chip:hover {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        transform: scale(1.05);
+        border-color: transparent;
+      }
+
+      .chip i {
+        font-size: 0.7rem;
+      }
+
+      .api-status {
+        font-size: 0.7rem;
+        color: #10b981;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0.2rem 0.5rem;
+        background: rgba(16, 185, 129, 0.1);
+        border-radius: 30px;
+      }
+
+      .api-status.error {
+        color: #ef4444;
+        background: rgba(239, 68, 68, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background Effects -->
+    <div class="noise-bg"></div>
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="gradient-orb orb-3"></div>
+    <div class="grid-lines"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="#home" class="logo gradient-text">Tharun S P</a>
+        <div class="nav-menu">
+          <a href="#home" class="nav-link">HOME</a>
+          <a href="#skills" class="nav-link">SKILLS</a>
+          <a href="#internship" class="nav-link">INTERNSHIP</a>
+          <a href="#project" class="nav-link">PROJECT</a>
+          <a href="#contact" class="nav-link">CONTACT</a>
+        </div>
+        <button class="mobile-menu-btn">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="animate-left">
+            <span class="hero-badge">
+              <i class="fas fa-code"></i>COMPUTER SCIENCE ENGINEER · 3RD YEAR
+            </span>
+            <h1 class="hero-title">
+              <span>I'm</span>
+              <span class="hero-name gradient-text glitch">Tharun S P</span>
+              <span class="hero-subtitle">Full Stack Developer</span>
+            </h1>
+            <p class="hero-text">
+              Building backend systems with Java, Spring Boot, and Python.
+              Focused on clean architecture, data structures, and scalable
+              solutions.
+            </p>
+            <div class="btn-group">
+              <a href="#skills" class="btn-primary">
+                <i class="fas fa-arrow-right"></i> Explore Work
+              </a>
+              <a href="#contact" class="btn-secondary">
+                <i class="fas fa-envelope"></i> Open to Opportunities
+              </a>
+            </div>
+          </div>
+
+          <div class="animate-right">
+            <div class="profile-container">
+              <div class="glow-ring"></div>
+              <div class="profile-wrapper">
+                <img src="profile.jpg" alt="Tharun S P" class="profile-img" />
+              </div>
+              <span class="profile-badge">
+                <i class="fas fa-terminal"></i> Systems Engineer
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"
+            ><i class="fas fa-cog"></i> Engineering Toolkit</span
+          >
+          <h2 class="section-title gradient-text">Technical Skills</h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="skills-grid">
+          <!-- Languages Card -->
+          <div class="card animate-up">
+            <div class="skill-icon"><i class="fas fa-code"></i></div>
+            <h3 class="card-title">Languages</h3>
+            <ul class="card-list">
+              <li>C++ (Advanced)</li>
+              <li>Java (Core, OOP, Collections)</li>
+              <li>Python (Scripting, Basics)</li>
+            </ul>
+          </div>
+
+          <!-- Frameworks Card -->
+          <div class="card animate-up delay-1">
+            <div class="skill-icon"><i class="fas fa-cubes"></i></div>
+            <h3 class="card-title">Frameworks</h3>
+            <ul class="card-list">
+              <li>Spring Boot (REST, DI)</li>
+              <li>Hibernate (JPA, ORM)</li>
+              <li>Flask (REST APIs)</li>
+            </ul>
+          </div>
+
+          <!-- Tools Card -->
+          <div class="card animate-up delay-2">
+            <div class="skill-icon"><i class="fas fa-tools"></i></div>
+            <h3 class="card-title">Tools & Platforms</h3>
+            <ul class="card-list">
+              <li>Git / GitHub (Version Control)</li>
+              <li>VS Code, IntelliJ IDEA</li>
+              <li>Postman, Docker (Basics)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Internships Section -->
+    <section id="internship">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"
+            ><i class="fas fa-briefcase"></i> Engineering Experience</span
+          >
+          <h2 class="section-title gradient-text">Internships & Project</h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="internships-grid">
+          <!-- Java Internship -->
+          <div class="card animate-left">
+            <div class="internship-header">
+              <span class="internship-date"
+                ><i class="far fa-calendar-alt"></i> Dec 2025 – Jan 2026</span
+              >
+              <i class="fab fa-java internship-icon"></i>
+            </div>
+            <h3 class="card-title">Java Developer Intern</h3>
+            <p class="internship-location">
+              <i class="fas fa-map-marker-alt"></i> Remote · Full Time
+            </p>
+            <ul class="internship-list">
+              <li>
+                <i class="fas fa-check-circle"></i> Implemented OOP solutions
+                with inheritance, polymorphism, exception handling
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i> Built banking system and
+                employee management applications
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i> Managed code with Git,
+                maintained GitHub repositories
+              </li>
+            </ul>
+          </div>
+
+          <!-- Python Internship -->
+          <div class="card animate-right">
+            <div class="internship-header">
+              <span class="internship-date"
+                ><i class="far fa-calendar-alt"></i> Dec 2025 – Jan 2026</span
+              >
+              <i class="fab fa-python internship-icon"></i>
+            </div>
+            <h3 class="card-title">Python Developer Intern</h3>
+            <p class="internship-location">
+              <i class="fas fa-map-marker-alt"></i> Remote · Full Time
+            </p>
+            <ul class="internship-list">
+              <li>
+                <i class="fas fa-check-circle"></i> Developed automation scripts
+                for file handling and data processing
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i> Created Flask backend
+                prototypes with REST endpoints
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i> Implemented Git branching
+                strategy for feature development
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Project Card -->
+        <div id="project" class="project-card">
+          <div class="card animate-up">
+            <div class="project-badge">
+              <i class="fas fa-star"></i> Main Engineering Project
+              <i
+                class="fas fa-cog"
+                style="animation: spin 3s infinite linear"
+              ></i>
+            </div>
+
+            <h3 class="project-title">Duty Chart Allocation System</h3>
+
+            <div class="project-tags">
+              <span class="project-tag"
+                ><i class="fab fa-python"></i> Python</span
+              >
+              <span class="project-tag"
+                ><i class="fas fa-code-branch"></i> Constraint Satisfaction ·
+                Backtracking</span
+              >
+            </div>
+
+            <div class="project-features">
+              <div>
+                <i class="fas fa-check-circle"></i> Allocates faculty exam
+                duties
+              </div>
+              <div>
+                <i class="fas fa-check-circle"></i> Constraint-based allocation
+                logic
+              </div>
+              <div>
+                <i class="fas fa-check-circle"></i> Reduces manual errors by 90%
+              </div>
+              <div>
+                <i class="fas fa-check-circle"></i> Fair & transparent
+                distribution
+              </div>
+            </div>
+
+            <div class="project-footer">
+              <span
+                ><i class="fas fa-code"></i> Pure Python implementation</span
+              >
+              <span
+                ><i class="fas fa-chart-line"></i> Used by faculty
+                (prototype)</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <footer
+      id="contact"
+      style="
+        padding: 5rem 0;
+        background: rgba(15, 23, 42, 0.5);
+        border-top: 1px solid rgba(59, 130, 246, 0.2);
+      "
+    >
+      <div class="container">
+        <div class="contact-grid">
+          <!-- Left Side -->
+          <div class="animate-left">
+            <h3
+              class="section-title gradient-text"
+              style="font-size: 2rem; margin-bottom: 1rem"
+            >
+              Let's Connect
+            </h3>
+            <p style="color: #9ca3af; font-size: 1.125rem; margin-bottom: 2rem">
+              Seeking internship opportunities and engineering collaborations.
+            </p>
+
+            <div class="contact-info">
+              <div class="contact-item">
+                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                <div>
+                  <div class="contact-label">Name</div>
+                  <div class="contact-value">Tharun S P</div>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon"><i class="fab fa-github"></i></div>
+                <div>
+                  <div class="contact-label">GitHub</div>
+                  <div class="contact-value"><a href="#">@tharunsp</a></div>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fab fa-linkedin-in"></i>
+                </div>
+                <div>
+                  <div class="contact-label">LinkedIn</div>
+                  <div class="contact-value"><a href="#">/in/tharunsp</a></div>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                <div>
+                  <div class="contact-label">Email</div>
+                  <div class="contact-value">tharunpalani777@gmail.com</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="social-links">
+              <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+              <a href="#" class="social-link"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+              <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+
+          <!-- Right Side - Contact Form -->
+          <div class="contact-form animate-right">
+            <h4 class="form-title">
+              <i class="fas fa-paper-plane gradient-text"></i> Send a Message
+            </h4>
+
+            <form
+              onsubmit="event.preventDefault(); alert('📬 Thanks for reaching out! I\'ll get back to you soon.');"
+            >
+              <div class="form-group">
+                <i class="fas fa-user form-icon"></i>
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  class="form-input"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <i class="fas fa-envelope form-icon"></i>
+                <input
+                  type="email"
+                  placeholder="Email Address"
+                  class="form-input"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <i class="fas fa-comment form-icon textarea"></i>
+                <textarea
+                  placeholder="Your Message..."
+                  class="form-textarea"
+                  required
+                ></textarea>
+              </div>
+
+              <button type="submit" class="form-btn">
+                <i class="fas fa-paper-plane"></i> Send Message
+              </button>
+
+              <p class="form-note">
+                <i class="fas fa-clock"></i> I'll respond within 24-48 hours
+              </p>
+            </form>
+          </div>
+        </div>
+
+        <div class="footer">
+          <i class="fas fa-code"></i> © 2026 Tharun S P — Built with precision ·
+          Systems Engineering Portfolio
+        </div>
+      </div>
+    </footer>
+
+    <!-- FLOATING CHATBOT ICON -->
+    <button class="chat-floating-icon" onclick="toggleChat()" id="chatToggle">
+      <i class="fas fa-comment-dots"></i>
+      <span class="notification-dot"></span>
+    </button>
+
+    <!-- GROK AI CHATBOT CONTAINER -->
+    <div class="chat-container" id="chatContainer">
+      <div class="chat-header">
+        <h3>
+          <i class="fas fa-robot"></i>
+          THARUN's PORTFOLIO ASSISTANT
+          <span class="api-status" id="apiStatus">
+            <i class="fas fa-circle"></i> Grok AI
+          </span>
+        </h3>
+        <button class="chat-close" onclick="toggleChat()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="chat-messages" id="chatMessages">
+        <div class="message bot-message">
+          👋 Hi! I'm THARUN's PORTFOLIO ASSISTANT powered by Grok AI. Ask me
+          anything about Tharun's skills, experience, projects, or education!
+        </div>
+      </div>
+
+      <!-- Suggestion Chips -->
+      <div class="suggestion-chips">
+        <span class="chip" onclick="quickQuestion('skills')">
+          <i class="fas fa-code"></i> Skills
+        </span>
+        <span class="chip" onclick="quickQuestion('internship')">
+          <i class="fas fa-briefcase"></i> Internships
+        </span>
+        <span class="chip" onclick="quickQuestion('project')">
+          <i class="fas fa-star"></i> Project
+        </span>
+        <span class="chip" onclick="quickQuestion('education')">
+          <i class="fas fa-graduation-cap"></i> Education
+        </span>
+        <span class="chip" onclick="quickQuestion('contact')">
+          <i class="fas fa-envelope"></i> Contact
+        </span>
+      </div>
+
+      <div class="chat-input-area">
+        <input
+          type="text"
+          class="chat-input"
+          id="userInput"
+          placeholder="Ask me anything..."
+          onkeypress="handleKeyPress(event)"
+        />
+        <button class="chat-send" onclick="sendMessage()" id="sendButton">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+
+    <style>
+      /* Mobile menu toggle */
+      .show {
+        display: block !important;
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Mobile menu styles */
+      .nav-menu.show {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(12px);
+        padding: 1rem;
+        border-top: 1px solid rgba(59, 130, 246, 0.2);
+      }
+
+      @media (min-width: 768px) {
+        .nav-menu.show {
+          display: none;
+        }
+      }
+    </style>
+
+    <script>
+      // Mobile menu functionality
+      document
+        .querySelector(".mobile-menu-btn")
+        .addEventListener("click", function () {
+          const menu = document.querySelector(".nav-menu");
+          menu.classList.toggle("show");
+          this.innerHTML = menu.classList.contains("show")
+            ? '<i class="fas fa-times"></i>'
+            : '<i class="fas fa-bars"></i>';
+        });
+
+      document.querySelectorAll(".nav-link").forEach((link) => {
+        link.addEventListener("click", () => {
+          document.querySelector(".nav-menu").classList.remove("show");
+          document.querySelector(".mobile-menu-btn").innerHTML =
+            '<i class="fas fa-bars"></i>';
+        });
+      });
+
+      // ===== GROK AI CHATBOT CONFIGURATION =====
+      // 🔑 YOUR GROK API KEY - This is now properly configured
+      require("dotenv").config();
+      const GROK_API_KEY = process.env.GROK_API_KEY;
+      const GROK_API_URL = process.env.GROK_API_URL;
+      const GROK_MODEL = process.env.GROK_MODEL;
+
+      // System prompt to define the assistant's personality and knowledge
+      const SYSTEM_PROMPT = `You are THARUN's PORTFOLIO ASSISTANT, an AI helper for Tharun S P's engineering portfolio. 
+    Your responses should be friendly, professional, and informative. Use emojis occasionally to make conversations engaging.
+    
+    Here's the information about Tharun S P that you MUST use to answer questions:
+    
+    - Name: Tharun S P
+    - Role: 3rd Year Computer Science Engineering Student, Full Stack Developer
+    - Focus: Backend systems with Java, Spring Boot, Python
+    - Interests: Clean architecture, data structures, scalable solutions
+    
+    TECHNICAL SKILLS:
+    Languages: C++ (Advanced), Java (Core, OOP, Collections), Python (Scripting, Basics)
+    Frameworks: Spring Boot (REST, DI), Hibernate (JPA, ORM), Flask (REST APIs)
+    Tools: Git/GitHub, VS Code, IntelliJ IDEA, Postman, Docker (Basics)
+    
+    INTERNSHIPS (Dec 2025 - Jan 2026):
+    1. Java Developer Intern:
+       - Implemented OOP solutions (inheritance, polymorphism, exception handling)
+       - Built banking system and employee management applications
+       - Managed code with Git, maintained GitHub repositories
+       
+    2. Python Developer Intern:
+       - Developed automation scripts for file handling and data processing
+       - Created Flask backend prototypes with REST endpoints
+       - Implemented Git branching strategy for feature development
+    
+    MAIN PROJECT: Duty Chart Allocation System
+    - Built with Python
+    - Constraint satisfaction algorithm with backtracking
+    - Automates faculty exam duty allocation
+    - Reduces manual errors by 90%
+    - Used by faculty as prototype
+    
+    EDUCATION:
+    - 3rd year Computer Science Engineering
+    - Focus: Full-stack development, Data Structures & Algorithms, System Design
+    
+    CONTACT INFORMATION:
+    - Email: tharunpalani777@gmail.com
+    - GitHub: @tharunsp
+    - LinkedIn: /in/tharunsp
+    
+    Keep responses concise but informative. If asked something not related to Tharun's portfolio, politely redirect the conversation.`;
+
+      // Chatbot elements
+      const chatContainer = document.getElementById("chatContainer");
+      const chatMessages = document.getElementById("chatMessages");
+      const userInput = document.getElementById("userInput");
+      const sendButton = document.getElementById("sendButton");
+      const apiStatus = document.getElementById("apiStatus");
+
+      // Check if API key is valid (not empty and properly formatted)
+      const isValidApiKey = process.env.GROK_API_KEY;
+
+      if (isValidApiKey) {
+        apiStatus.innerHTML = '<i class="fas fa-circle"></i> Grok AI Online';
+        apiStatus.classList.remove("error");
+      } else {
+        apiStatus.innerHTML =
+          '<i class="fas fa-exclamation-triangle"></i> Using Local Mode';
+        apiStatus.classList.add("error");
+        console.warn("Grok API key not valid. Using local fallback responses.");
+      }
+
+      function toggleChat() {
+        chatContainer.classList.toggle("open");
+        // Remove notification dot when chat is opened
+        if (chatContainer.classList.contains("open")) {
+          document.querySelector(".notification-dot").style.display = "none";
+        }
+      }
+
+      function handleKeyPress(e) {
+        if (e.key === "Enter") {
+          sendMessage();
+        }
+      }
+
+      function addMessage(text, isUser) {
+        const messageDiv = document.createElement("div");
+        messageDiv.className = `message ${
+          isUser ? "user-message" : "bot-message"
+        }`;
+        messageDiv.innerHTML = text.replace(/\n/g, "<br>");
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function showTypingIndicator() {
+        const indicator = document.createElement("div");
+        indicator.className = "typing-indicator";
+        indicator.id = "typingIndicator";
+        for (let i = 0; i < 3; i++) {
+          const span = document.createElement("span");
+          indicator.appendChild(span);
+        }
+        chatMessages.appendChild(indicator);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function removeTypingIndicator() {
+        const indicator = document.getElementById("typingIndicator");
+        if (indicator) {
+          indicator.remove();
+        }
+      }
+
+      async function callGrokAPI(userMessage) {
+        // If API key is not valid, use local responses
+        if (!isValidApiKey) {
+          return getLocalResponse(userMessage);
+        }
+
+        try {
+          const response = await fetch(GROK_API_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${GROK_API_KEY}`,
+            },
+            body: JSON.stringify({
+              model: GROK_MODEL,
+              messages: [
+                {
+                  role: "system",
+                  content: SYSTEM_PROMPT,
+                },
+                {
+                  role: "user",
+                  content: userMessage,
+                },
+              ],
+              temperature: 0.7,
+              max_tokens: 500,
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error(`API Error: ${response.status}`);
+          }
+
+          const data = await response.json();
+          return data.choices[0].message.content;
+        } catch (error) {
+          console.error("Grok API Error:", error);
+          apiStatus.innerHTML =
+            '<i class="fas fa-exclamation-triangle"></i> API Error - Using Local';
+          apiStatus.classList.add("error");
+          return getLocalResponse(userMessage); // Fallback to local responses
+        }
+      }
+
+      // Local fallback responses (used when API key is not valid or API fails)
+      function getLocalResponse(userMessage) {
+        const msg = userMessage.toLowerCase();
+
+        if (
+          msg.includes("skill") ||
+          msg.includes("technologies") ||
+          msg.includes("tech stack")
+        ) {
+          return (
+            "💻 **Tharun's Technical Skills:**\n\n" +
+            "**Languages:**\n• C++ (Advanced)\n• Java (Core, OOP, Collections)\n• Python (Scripting)\n\n" +
+            "**Frameworks:**\n• Spring Boot (REST, DI)\n• Hibernate (JPA, ORM)\n• Flask (REST APIs)\n\n" +
+            "**Tools:**\n• Git/GitHub\n• VS Code, IntelliJ\n• Postman, Docker (Basics)"
+          );
+        } else if (msg.includes("internship") || msg.includes("experience")) {
+          return (
+            "📁 **Internships (Dec 2025 - Jan 2026):**\n\n" +
+            "🔹 **Java Developer Intern**\n• OOP solutions\n• Banking & Employee systems\n• GitHub management\n\n" +
+            "🔹 **Python Developer Intern**\n• Automation scripts\n• Flask prototypes\n• Git branching"
+          );
+        } else if (msg.includes("project")) {
+          return (
+            "🌟 **Main Project: Duty Chart Allocation System**\n\n" +
+            "• Built with Python\n• Constraint satisfaction algorithm\n• Reduces manual errors by 90%\n• Used by faculty (prototype)"
+          );
+        } else if (msg.includes("education") || msg.includes("college")) {
+          return "🎓 **Education**\n\n• 3rd year Computer Science Engineering\n• Focus: Full-stack development\n• Data Structures & Algorithms\n• System Design";
+        } else if (
+          msg.includes("contact") ||
+          msg.includes("email") ||
+          msg.includes("github") ||
+          msg.includes("linkedin")
+        ) {
+          return "📬 **Connect with Tharun:**\n\n📧 tharunpalani777@gmail.com\n🐱 @tharunsp\n🔗 /in/tharunsp";
+        } else if (msg.includes("hello") || msg.includes("hi")) {
+          return "👋 Hello! I'm THARUN's PORTFOLIO ASSISTANT. Ask me about skills, internships, projects, or contact info!";
+        } else {
+          return "🤔 I can help with info about Tharun's skills, internships, project, education, or contact details. What would you like to know?";
+        }
+      }
+
+      async function sendMessage() {
+        const message = userInput.value.trim();
+        if (!message) return;
+
+        // Disable input while processing
+        userInput.disabled = true;
+        sendButton.disabled = true;
+
+        // Add user message
+        addMessage(message, true);
+        userInput.value = "";
+
+        // Show typing indicator
+        showTypingIndicator();
+
+        try {
+          // Get response from Grok API (or local fallback)
+          const response = await callGrokAPI(message);
+
+          // Remove typing indicator and add response
+          removeTypingIndicator();
+          addMessage(response, false);
+        } catch (error) {
+          removeTypingIndicator();
+          addMessage(
+            "😅 Sorry, I encountered an error. Please try again.",
+            false
+          );
+        } finally {
+          // Re-enable input
+          userInput.disabled = false;
+          sendButton.disabled = false;
+          userInput.focus();
+        }
+      }
+
+      function quickQuestion(type) {
+        let question = "";
+        switch (type) {
+          case "skills":
+            question = "What are Tharun's technical skills?";
+            break;
+          case "internship":
+            question = "Tell me about his internship experience";
+            break;
+          case "project":
+            question = "What's his main project?";
+            break;
+          case "education":
+            question = "What is his educational background?";
+            break;
+          case "contact":
+            question = "How can I contact him?";
+            break;
+        }
+
+        // Set input value and trigger send
+        userInput.value = question;
+        sendMessage();
+      }
+
+      // Close chat when clicking outside (optional)
+      document.addEventListener("click", function (event) {
+        const chatToggle = document.getElementById("chatToggle");
+        if (
+          !chatContainer.contains(event.target) &&
+          !chatToggle.contains(event.target) &&
+          chatContainer.classList.contains("open")
+        ) {
+          // Uncomment to close when clicking outside
+          // chatContainer.classList.remove('open');
+        }
+      });
+    </script>
+  </body>
+</html>
